@@ -98,6 +98,7 @@
                 title: {
                     text: 'Energy meter'
                 },
+                color:[rgba(0, 237, 100, 1.00), rgba(0, 30, 43, 1.00), rgba(255, 255, 255, 1.00)],
                 tooltip: {},
                 xAxis: {
                     data: result.map(r => r._id)
@@ -105,8 +106,8 @@
                 yAxis: {},
                 series: [
                     {
-                        type: 'bar',
-                        data: result.map(r => r.total)
+                        type: 'pie',
+                        data: result.map(r => {return {name:r._id,value:r.total};})
                     }
                 ]
             });
