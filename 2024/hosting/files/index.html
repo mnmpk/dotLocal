@@ -61,11 +61,36 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
     <script>
         let batteryLevel = 1;
         let name = "";
-        apiKey = "";
+        const apiKey = "8aQOh2ZvLwLwm2UY3MdoXfeWcbgcaH39Cp40r0mWH2tAZA4nXyaCQHPd3gEOpS7W";
+        const app = new Realm.App({ id: "dotlocal-qnmicab" });
+
+        async function login() {
+            try {
+                if (!app.currentUser) {
+                    let credentials;
+                    if (userAPIKey.length > 0) {
+                        credentials = Realm.Credentials.apiKey(userAPIKey);
+                    } else {
+                        credentials = Realm.Credentials.anonymous();
+                    }
+                    await app.logIn(credentials);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function call() {
+            await app.currentUser.refreshCustomData();
+            await app.currentUser.functions.battery({ nane: $("#name").val(), batteryLevel: batteryLevel, date: new Date() });
+        }
+
         $(document).ready(function () {
+            login();
 
             navigator.getBattery().then((battery) => {
                 batteryLevel = battery.level;
@@ -76,28 +101,14 @@
             });
             setInterval(function () {
                 if (name) {
-                    $.ajax({
-                        url: "https://ap-southeast-1.aws.data.mongodb-api.com/app/dotlocal-qnmicab/endpoint/battery",
-                        type: 'post',
-                        data: { name: name, batteryLevel: batteryLevel, date: new Date() },
-                        crossDomain:true,
-                        headers: {
-                            "Access-Control-Allow-Origin": "https://dotlocal-qnmicab.mongodbstitch.com",
-                            apiKey: "8aQOh2ZvLwLwm2UY3MdoXfeWcbgcaH39Cp40r0mWH2tAZA4nXyaCQHPd3gEOpS7W"
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            console.info(data);
-                        }
-                    });
+                    call();
                 }
             }, 1000);
         });
+
         function start() {
             name = $("#name").val();
         }
-
-
     </script>
 
 
