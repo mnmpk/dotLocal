@@ -98,8 +98,8 @@
                 title: {
                     text: 'Energy meter',
                     left: "center",
-                    textStyle:{
-                        color:"#FFF"
+                    textStyle: {
+                        color: "#FFF"
                     }
                 },
                 color: ['rgba(0, 237, 100, 1.00)', '#00684A', '#00A35C'],
@@ -111,12 +111,13 @@
                     }
                 ]
             });
-            chart.resize();
         }
 
         $(document).ready(function () {
             login();
-
+            window.addEventListener("resize", () => {
+                chart.resize();
+            });
             navigator.getBattery().then((battery) => {
                 level = battery.level;
 
