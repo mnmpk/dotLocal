@@ -1,5 +1,5 @@
 {
-    "database": "dotLocal",
+    "database": "dotLocal2024",
     "collection": "tsBattery",
     "roles": [
         {
