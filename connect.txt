@@ -1,1 +1,0 @@
-mongosh "mongodb://atlas-stream-66964d0c20a80248bc88c532-uskpz.virginia-usa.a.query.mongodb.net/" --tls--authenticationDatabase admin--username admin
