@@ -1,5 +1,8 @@
 {
     "name": "dotLocal",
     "provider_region": "aws-ap-southeast-1",
-    "deployment_model": "LOCAL"
+    "deployment_model": "LOCAL",
+    "allowed_request_origins": [
+        "https://dotlocal-qnmicab.mongodbstitch.com"
+    ]
 }
