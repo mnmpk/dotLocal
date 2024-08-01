@@ -30,5 +30,5 @@ exports = function({ query, headers, body}, response) {
 
     // The return value of the function is sent as the response back to the client
     // when the "Respond with Result" setting is set.
-    return context.services.get("mongodb-atlas").db("dotLocal2024").collection("tsBattery").insertOne(doc);
+    return context.services.get("mongodb-atlas").db("dotLocal2024").collection("batteries").insertOne(doc);
 };

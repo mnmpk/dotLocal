@@ -3,23 +3,26 @@
 let s = {
     $source: {
         connectionName: "dotLocal",
-        tsFieldName: "t",
-        db: "change-stream",
-        coll: ["data"],
+        tsFieldName: "date",
+        db: "dotLocal2024",
+        coll: ["batteries"],
     }
 }
 
 let t = {
-    $tumblingWindow: {
+    $hoppingWindow: {
         interval: {
-            size: 1,
+            size: 10,
+            unit: "second"
+        },
+        hopSize: {
+            size: 10,
             unit: "second"
         },
         pipeline: [{
             $group: {
-                _id: "$fullDocument.i",
-                count:{$sum:1},
-                t: { $push: "$fullDocument.t" }
+                _id: "$fullDocument.name",
+                avg: { $avg: "$fullDocument.batteryLevel" },
             }
         }]
     }
@@ -29,21 +32,22 @@ let m = {
     $merge: {
         into: {
             connectionName: "dotLocal",
-            db: "change-stream",
-            coll: "sp-data"
+            db: "dotLocal2024",
+            coll: "avgBattery"
         }
     }
 }
-sp.process([s, t, m])
+//sp.process([s, m])
+//sp.process([s, t, m])
 
-sp.countReq.drop()
+sp.avgBattery.drop()
 
-sp.createStreamProcessor("countReq", [s, t, m])
-sp.countReq.start()
-sp.countReq.sample()
+sp.createStreamProcessor("avgBattery", [s, t, m])
+sp.avgBattery.start()
+//sp.avgBattery.sample()
 
 
 
 
 sp.listStreamProcessors()
-sp.countReq.stats()
+sp.avgBattery.stats()
