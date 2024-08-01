@@ -96,9 +96,13 @@
             const result = await app.currentUser.functions.getBatteries();
             chart.setOption({
                 title: {
-                    text: 'Energy meter'
+                    text: 'Energy meter',
+                    textAlign: "center",
+                    textStyle:{
+                        color:"#FFF"
+                    }
                 },
-                color: ['rgba(0, 237, 100, 1.00)', '#00684A', '00A35C'],
+                color: ['FFFFFF', '#00684A', '00A35C'],
                 tooltip: {},
                 xAxis: {
                     data: result.map(r => r._id)
