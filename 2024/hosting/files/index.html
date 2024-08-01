@@ -79,10 +79,10 @@
                 });
             });
             setInterval(function () {
-                console.log();
                 if (name) {
-                    //send
-                    console.log({name:name,batteryLevel:batteryLevel});
+                    $.post("https://ap-southeast-1.aws.data.mongodb-api.com/app/dotlocal-qnmicab/endpoint/battery", { name: name, batteryLevel: batteryLevel, date: new Date() }, function (result) {
+                        console.log(result);
+                    });
                 }
             }, 1000);
         });
