@@ -85,8 +85,8 @@
         }
 
         async function call() {
-            await app.currentUser.refreshCustomData();
-            await app.currentUser.functions.battery({ body: { name: $("#name").val(), batteryLevel: batteryLevel, date: new Date() } });
+            //await app.currentUser.refreshCustomData();
+            await app.currentUser.functions.battery({ name: $("#name").val(), batteryLevel: batteryLevel, date: new Date() });
         }
 
         $(document).ready(function () {
