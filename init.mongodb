@@ -21,8 +21,8 @@ let t = {
         },
         pipeline: [{
             $group: {
-                _id: "$fullDocument.name",
-                avg: { $avg: "$fullDocument.batteryLevel" },
+                _id: "$fullDocument.team",
+                total: { $sum: "$fullDocument.level" },
             }
         }]
     }
@@ -33,21 +33,21 @@ let m = {
         into: {
             connectionName: "dotLocal",
             db: "dotLocal2024",
-            coll: "avgBattery"
+            coll: "sumBattery"
         }
     }
 }
 //sp.process([s, m])
 //sp.process([s, t, m])
 
-sp.avgBattery.drop()
+//sp.sumBattery.drop()
 
-sp.createStreamProcessor("avgBattery", [s, t, m])
-sp.avgBattery.start()
+sp.createStreamProcessor("sumBattery", [s, t, m])
+sp.sumBattery.start()
 //sp.avgBattery.sample()
 
 
 
 
 sp.listStreamProcessors()
-sp.avgBattery.stats()
+sp.sumBattery.stats()

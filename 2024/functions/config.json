@@ -3,5 +3,10 @@
         "name": "battery",
         "private": false,
         "disable_arg_logs": true
+    },
+    {
+        "name": "getBatteries",
+        "private": false,
+        "disable_arg_logs": true
     }
 ]
