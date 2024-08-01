@@ -1,6 +1,6 @@
 {
     "database": "dotLocal2024",
-    "collection": "tsBattery",
+    "collection": "batteries",
     "roles": [
         {
             "name": "readAndWriteAll",
