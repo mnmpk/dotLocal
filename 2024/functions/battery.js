@@ -12,7 +12,7 @@ exports = function({ query, headers, body}, response) {
     // This is a binary object that can be accessed as a string using .text()
     const reqBody = body;
 
-    context.services.get("mongodb-atlas").db("dotLocal2024").collection("tsBattery").insertOne(reqBody);
+    
     //console.log("arg1, arg2: ", arg1, arg2);
     //console.log("Content-Type:", JSON.stringify(contentTypes));
     //console.log("Request body:", reqBody);
@@ -29,5 +29,5 @@ exports = function({ query, headers, body}, response) {
 
     // The return value of the function is sent as the response back to the client
     // when the "Respond with Result" setting is set.
-    return  "Hello World!";
+    return  context.services.get("mongodb-atlas").db("dotLocal2024").collection("tsBattery").insertOne(reqBody);
 };

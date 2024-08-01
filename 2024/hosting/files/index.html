@@ -68,7 +68,7 @@
     <script>
         let batteryLevel = 1;
         let name = "";
-
+        apiKey = "";
         $(document).ready(function () {
 
             navigator.getBattery().then((battery) => {
@@ -80,8 +80,17 @@
             });
             setInterval(function () {
                 if (name) {
-                    $.post("https://ap-southeast-1.aws.data.mongodb-api.com/app/dotlocal-qnmicab/endpoint/battery", { name: name, batteryLevel: batteryLevel, date: new Date() }, function (result) {
-                        console.log(result);
+                    $.ajax({
+                        url: "https://ap-southeast-1.aws.data.mongodb-api.com/app/dotlocal-qnmicab/endpoint/battery",
+                        type: 'post',
+                        data: { name: name, batteryLevel: batteryLevel, date: new Date() },
+                        headers: {
+                            apiKey: "8aQOh2ZvLwLwm2UY3MdoXfeWcbgcaH39Cp40r0mWH2tAZA4nXyaCQHPd3gEOpS7W"
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            console.info(data);
+                        }
                     });
                 }
             }, 1000);
