@@ -45,20 +45,22 @@
         <main class="px-3">
             <h1 class="mb-5">Energize MongoDB .Local with your battery!</h1>
             <div class="mb-3">
-                <label for="team" class="form-label">Please let us know which team you are going to contribute your engery?</label>
+                <label for="team" class="form-label">Please let us know which team you are going to contribute your
+                    engery?</label>
                 <select id="team" class="form-select" aria-label="Default select example">
                     <option selected>Select your team</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
-                  </select>
+                </select>
                 <span class="form-text text-white">
                     This demo will send your device's battery level with your name
                 </span>
             </div>
             <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold" onclick="start()">Start!</a>
+                <a id="btnStart" href="#" class="btn btn-lg btn-secondary fw-bold" onclick="start()">Start!</a>
             </p>
+            <div id="chart" style="width: 100%;height:400px;"></div>
         </main>
 
         <footer class="mt-auto text-white-50">
@@ -66,18 +68,20 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
     <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
     <script>
         let level = 1;
         let team = "";
         const app = new Realm.App({ id: "dotlocal-qnmicab" });
+        const chart = echarts.init($('#chart')[0]);
 
         async function login() {
             try {
                 if (!app.currentUser) {
                     let credentials = Realm.Credentials.apiKey("8aQOh2ZvLwLwm2UY3MdoXfeWcbgcaH39Cp40r0mWH2tAZA4nXyaCQHPd3gEOpS7W");
                     await app.logIn(credentials);
-                }else{
+                } else {
                     await app.currentUser.refreshCustomData();
                 }
             } catch (error) {
@@ -89,7 +93,23 @@
             await app.currentUser.functions.battery({ team: team, level: level, date: new Date() });
         }
         async function getBatteries() {
-            console.log(await app.currentUser.functions.getBatteries());
+            const result = await app.currentUser.functions.getBatteries();
+            chart.setOption({
+                title: {
+                    text: 'Energy meter'
+                },
+                tooltip: {},
+                xAxis: {
+                    data: result.map(r => r._id)
+                },
+                yAxis: {},
+                series: [
+                    {
+                        type: 'bar',
+                        data: result.map(r => r.total)
+                    }
+                ]
+            });
         }
 
         $(document).ready(function () {
@@ -105,13 +125,15 @@
             setInterval(function () {
                 if (team) {
                     send();
+                    getBatteries();
                 }
-                getBatteries();                
             }, 1000);
         });
 
         function start() {
             team = $("#team").val();
+            $("#team").hide();
+            $("#btnStart").hide();
         }
     </script>
 
