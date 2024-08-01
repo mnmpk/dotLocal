@@ -79,9 +79,10 @@
                     $.ajax({
                         url: "https://ap-southeast-1.aws.data.mongodb-api.com/app/dotlocal-qnmicab/endpoint/battery",
                         type: 'post',
-                        crossDomain: true,
                         data: { name: name, batteryLevel: batteryLevel, date: new Date() },
                         headers: {
+                            "Access-Control-Request-Method": "GET, POST, OPTIONS",
+                            "Access-Control-Allow-Origin": "https://dotlocal-qnmicab.mongodbstitch.com",
                             apiKey: "8aQOh2ZvLwLwm2UY3MdoXfeWcbgcaH39Cp40r0mWH2tAZA4nXyaCQHPd3gEOpS7W"
                         },
                         dataType: 'json',
