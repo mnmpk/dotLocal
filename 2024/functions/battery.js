@@ -1,5 +1,8 @@
 // This function is the endpoint's request handler.
-exports = function({ query, headers, body}, response) {
+exports = function(request, response) {
+    console.log(request);
+    const { query, headers, body} = request;
+    console.log(body);
     // Data can be extracted from the request as follows:
 
     // Query params, e.g. '?arg1=hello&arg2=world' => {arg1: "hello", arg2: "world"}
