@@ -1,8 +1,5 @@
 // This function is the endpoint's request handler.
 exports = function(request, response) {
-    console.log(request);
-    const { query, headers, body} = request;
-    console.log(body);
     // Data can be extracted from the request as follows:
 
     // Query params, e.g. '?arg1=hello&arg2=world' => {arg1: "hello", arg2: "world"}
@@ -13,8 +10,8 @@ exports = function(request, response) {
 
     // Raw request body (if the client sent one).
     // This is a binary object that can be accessed as a string using .text()
-    let doc = JSON.parse(body);
-    doc.date = new Date();
+    let doc = JSON.parse(request.body);
+    //doc.date = new Date();
     
     //console.log("arg1, arg2: ", arg1, arg2);
     //console.log("Content-Type:", JSON.stringify(contentTypes));
@@ -32,5 +29,5 @@ exports = function(request, response) {
 
     // The return value of the function is sent as the response back to the client
     // when the "Respond with Result" setting is set.
-    return context.services.get("mongodb-atlas").db("dotLocal2024").collection("batteries").insertOne(doc);
+    //return context.services.get("mongodb-atlas").db("dotLocal2024").collection("batteries").insertOne(doc);
 };
