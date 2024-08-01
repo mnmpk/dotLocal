@@ -44,7 +44,7 @@
 
         <main class="px-3">
             <h1 class="mb-5">Energize MongoDB .Local with your battery!</h1>
-            <div class="mb-3">
+            <div id="choice" class="mb-3">
                 <label for="team" class="form-label">Please let us know which team you are going to contribute your
                     engery?</label>
                 <select id="team" class="form-select" aria-label="Default select example">
@@ -56,10 +56,10 @@
                 <span class="form-text text-white">
                     This demo will send your device's battery level with your name
                 </span>
+                <p class="lead">
+                    <a id="btnStart" href="#" class="btn btn-lg btn-secondary fw-bold" onclick="start()">Start!</a>
+                </p>
             </div>
-            <p class="lead">
-                <a id="btnStart" href="#" class="btn btn-lg btn-secondary fw-bold" onclick="start()">Start!</a>
-            </p>
             <div id="chart" style="width: 100%;height:400px;"></div>
         </main>
 
@@ -133,8 +133,7 @@
 
         function start() {
             team = $("#team").val();
-            $("#team").hide();
-            $("#btnStart").hide();
+            $("#choice").hide();
         }
     </script>
 
