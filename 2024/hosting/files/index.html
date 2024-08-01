@@ -72,8 +72,8 @@
             try {
                 if (!app.currentUser) {
                     let credentials;
-                    if (userAPIKey.length > 0) {
-                        credentials = Realm.Credentials.apiKey(userAPIKey);
+                    if (apiKey.length > 0) {
+                        credentials = Realm.Credentials.apiKey(apiKey);
                     } else {
                         credentials = Realm.Credentials.anonymous();
                     }
