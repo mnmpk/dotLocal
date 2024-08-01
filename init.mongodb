@@ -1,0 +1,49 @@
+
+
+let s = {
+    $source: {
+        connectionName: "dotLocal",
+        tsFieldName: "t",
+        db: "change-stream",
+        coll: ["data"],
+    }
+}
+
+let t = {
+    $tumblingWindow: {
+        interval: {
+            size: 1,
+            unit: "second"
+        },
+        pipeline: [{
+            $group: {
+                _id: "$fullDocument.i",
+                count:{$sum:1},
+                t: { $push: "$fullDocument.t" }
+            }
+        }]
+    }
+}
+
+let m = {
+    $merge: {
+        into: {
+            connectionName: "dotLocal",
+            db: "change-stream",
+            coll: "sp-data"
+        }
+    }
+}
+sp.process([s, t, m])
+
+sp.countReq.drop()
+
+sp.createStreamProcessor("countReq", [s, t, m])
+sp.countReq.start()
+sp.countReq.sample()
+
+
+
+
+sp.listStreamProcessors()
+sp.countReq.stats()
