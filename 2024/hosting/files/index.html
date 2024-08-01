@@ -86,7 +86,7 @@
 
         async function call() {
             await app.currentUser.refreshCustomData();
-            await app.currentUser.functions.battery({ nane: $("#name").val(), batteryLevel: batteryLevel, date: new Date() });
+            await app.currentUser.functions.battery({}, {}, { nane: $("#name").val(), batteryLevel: batteryLevel, date: new Date() });
         }
 
         $(document).ready(function () {
