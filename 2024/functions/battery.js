@@ -13,8 +13,7 @@ exports = function(request, response) {
 
     // Raw request body (if the client sent one).
     // This is a binary object that can be accessed as a string using .text()
-    const reqBody = body.text();
-    let doc = JSON.parse(reqBody);
+    let doc = JSON.parse(body);
     doc.date = new Date();
     
     //console.log("arg1, arg2: ", arg1, arg2);
