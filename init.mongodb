@@ -16,7 +16,7 @@ let t = {
             unit: "second"
         },
         hopSize: {
-            size: 10,
+            size: 2,
             unit: "second"
         },
         pipeline: [{
@@ -40,7 +40,7 @@ let m = {
 //sp.process([s, m])
 //sp.process([s, t, m])
 
-//sp.sumBattery.drop()
+sp.sumBattery.drop()
 
 sp.createStreamProcessor("sumBattery", [s, t, m])
 sp.sumBattery.start()
