@@ -107,6 +107,9 @@
                 series: [
                     {
                         type: 'pie',
+                        label: {
+                            position: 'inner'
+                        },
                         data: result.map(r => { return { name: "Team " + r._id, value: r.total }; })
                     }
                 ]
