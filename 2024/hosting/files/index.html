@@ -121,6 +121,14 @@
             window.addEventListener("resize", () => {
                 chart.resize();
             });
+            setInterval(function () {
+                if (team) {
+                    send();
+                    getBatteries();
+                }
+            }, 1000);
+            alert(navigator)
+            alert(navigator.getBattery())
             navigator.getBattery().then((battery) => {
                 level = battery.level;
 
@@ -128,12 +136,6 @@
                     level = battery.level;
                 });
             });
-            setInterval(function () {
-                if (team) {
-                    send();
-                    getBatteries();
-                }
-            }, 1000);
         });
 
         function start() {
